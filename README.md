@@ -17,3 +17,10 @@ pip install -r requirements.txt
 python main.py
 ```
 `deactivate` to deactivate the virtual env.
+
+## Current issue trying to run on Pi
+* Permission issue (need sudo to start tshark or something?)
+  - workaround by running it in root
+* Not capturing packets
+  - "Listening..." showed up, no error, was not able to capture the association request packets.
+  - it was working on mac with "en0" interface, but changed the to "wlan0" for the Pi and it's not working, it could totally be something else tho.
