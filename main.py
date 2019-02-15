@@ -15,7 +15,9 @@ if __name__ == '__main__':
     logger = setup_log()
 
     # cap = pyshark.FileCapture('pcaps/tuna8-join-ddwrt.pcap', display_filter='wlan.sa[4:]==8f:28 and wlan.fc.type==0')
-    cap = pyshark.LiveCapture(interface='en0', monitor_mode=True, display_filter='wlan.fc.type==0')
+    cap = pyshark.LiveCapture(interface='wlan0', monitor_mode=True, display_filter='wlan.fc.type==0')
+
+    print('Listening...')
 
     # for p in cap:
     for p in cap.sniff_continuously():
