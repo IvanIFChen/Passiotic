@@ -1,0 +1,167 @@
+16/02/2019 17:04:11 Using selector: KqueueSelector
+16/02/2019 17:04:19 No attribute named wlan
+16/02/2019 17:04:19 Packet (Length: 39)
+Layer RADIOTAP:
+	Header revision: 0
+	Header pad: 0
+	Header length: 25
+	Present flags
+	Present flags word: 0x0000086f
+	.... .... .... .... .... .... .... ...1 = TSFT: Present
+	.... .... .... .... .... .... .... ..1. = Flags: Present
+	.... .... .... .... .... .... .... .1.. = Rate: Present
+	.... .... .... .... .... .... .... 1... = Channel: Present
+	.... .... .... .... .... .... ...0 .... = FHSS: Absent
+	.... .... .... .... .... .... ..1. .... = dBm Antenna Signal: Present
+	.... .... .... .... .... .... .1.. .... = dBm Antenna Noise: Present
+	.... .... .... .... .... .... 0... .... = Lock Quality: Absent
+	.... .... .... .... .... ...0 .... .... = TX Attenuation: Absent
+	.... .... .... .... .... ..0. .... .... = dB TX Attenuation: Absent
+	.... .... .... .... .... .0.. .... .... = dBm TX Power: Absent
+	.... .... .... .... .... 1... .... .... = Antenna: Present
+	.... .... .... .... ...0 .... .... .... = dB Antenna Signal: Absent
+	.... .... .... .... ..0. .... .... .... = dB Antenna Noise: Absent
+	.... .... .... .... .0.. .... .... .... = RX flags: Absent
+	.... .... .... .0.. .... .... .... .... = Channel+: Absent
+	.... .... .... 0... .... .... .... .... = MCS information: Absent
+	.... .... ...0 .... .... .... .... .... = A-MPDU Status: Absent
+	.... .... ..0. .... .... .... .... .... = VHT information: Absent
+	.... .... .0.. .... .... .... .... .... = frame timestamp: Absent
+	.... .... 0... .... .... .... .... .... = HE information: Absent
+	.... ...0 .... .... .... .... .... .... = HE-MU information: Absent
+	...0 000. .... .... .... .... .... .... = Reserved: 0x0
+	..0. .... .... .... .... .... .... .... = Radiotap NS next: False
+	.0.. .... .... .... .... .... .... .... = Vendor NS next: False
+	0... .... .... .... .... .... .... .... = Ext: Absent
+	MAC timestamp: 513670599
+	Flags: 0x5a
+	.... ...0 = CFP: False
+	.... ..1. = Preamble: Short
+	.... .0.. = WEP: False
+	.... 1... = Fragmentation: True
+	...1 .... = FCS at end: True
+	..0. .... = Data Pad: False
+	.1.. .... = Bad FCS: True
+	0... .... = Short GI: False
+	Data Rate: 11.0 Mb/s
+	Channel frequency: 2462 [BG 11]
+	Channel flags: 0x0480, 2 GHz spectrum, Dynamic CCK-OFDM
+	.... .... ...0 .... = Turbo: False
+	.... .... ..0. .... = Complementary Code Keying (CCK): False
+	.... .... .0.. .... = Orthogonal Frequency-Division Multiplexing (OFDM): False
+	.... .... 1... .... = 2 GHz spectrum: True
+	.... ...0 .... .... = 5 GHz spectrum: False
+	.... ..0. .... .... = Passive: False
+	.... .1.. .... .... = Dynamic CCK-OFDM: True
+	.... 0... .... .... = Gaussian Frequency Shift Keying (GFSK): False
+	...0 .... .... .... = GSM (900MHz): False
+	..0. .... .... .... = Static Turbo: False
+	.0.. .... .... .... = Half Rate Channel (10MHz Channel Width): False
+	0... .... .... .... = Quarter Rate Channel (5MHz Channel Width): False
+	Antenna signal: -52dBm
+	Antenna noise: -101dBm
+	Antenna: 0
+Layer WLAN_RADIO:
+	PHY type: 802.11g (6)
+	Short preamble: True
+	Proprietary mode: None (0)
+	Data rate: 11.0 Mb/s
+	Channel: 11
+	Frequency: 2462MHz
+	Signal strength (dBm): -52dBm
+	Noise level (dBm): -101dBm
+	TSF timestamp: 513670599
+	Duration: 107\xc2\xb5s
+	Preamble: 96\xc2\xb5s
+	IFS: 18\xc2\xb5s
+	Start: 513670492\xc2\xb5s
+	End: 513670599\xc2\xb5s
+Layer _WS.MALFORMED:
+	Expert Info (Error/Malformed): Malformed Packet (Exception occurred)
+	Malformed Packet (Exception occurred)
+	Severity level: Error
+	Group: Malformed
+
+16/02/2019 17:04:21 No attribute named wlan
+16/02/2019 17:04:21 Packet (Length: 39)
+Layer RADIOTAP:
+	Header revision: 0
+	Header pad: 0
+	Header length: 25
+	Present flags
+	Present flags word: 0x0000086f
+	.... .... .... .... .... .... .... ...1 = TSFT: Present
+	.... .... .... .... .... .... .... ..1. = Flags: Present
+	.... .... .... .... .... .... .... .1.. = Rate: Present
+	.... .... .... .... .... .... .... 1... = Channel: Present
+	.... .... .... .... .... .... ...0 .... = FHSS: Absent
+	.... .... .... .... .... .... ..1. .... = dBm Antenna Signal: Present
+	.... .... .... .... .... .... .1.. .... = dBm Antenna Noise: Present
+	.... .... .... .... .... .... 0... .... = Lock Quality: Absent
+	.... .... .... .... .... ...0 .... .... = TX Attenuation: Absent
+	.... .... .... .... .... ..0. .... .... = dB TX Attenuation: Absent
+	.... .... .... .... .... .0.. .... .... = dBm TX Power: Absent
+	.... .... .... .... .... 1... .... .... = Antenna: Present
+	.... .... .... .... ...0 .... .... .... = dB Antenna Signal: Absent
+	.... .... .... .... ..0. .... .... .... = dB Antenna Noise: Absent
+	.... .... .... .... .0.. .... .... .... = RX flags: Absent
+	.... .... .... .0.. .... .... .... .... = Channel+: Absent
+	.... .... .... 0... .... .... .... .... = MCS information: Absent
+	.... .... ...0 .... .... .... .... .... = A-MPDU Status: Absent
+	.... .... ..0. .... .... .... .... .... = VHT information: Absent
+	.... .... .0.. .... .... .... .... .... = frame timestamp: Absent
+	.... .... 0... .... .... .... .... .... = HE information: Absent
+	.... ...0 .... .... .... .... .... .... = HE-MU information: Absent
+	...0 000. .... .... .... .... .... .... = Reserved: 0x0
+	..0. .... .... .... .... .... .... .... = Radiotap NS next: False
+	.0.. .... .... .... .... .... .... .... = Vendor NS next: False
+	0... .... .... .... .... .... .... .... = Ext: Absent
+	MAC timestamp: 514400876
+	Flags: 0x52
+	.... ...0 = CFP: False
+	.... ..1. = Preamble: Short
+	.... .0.. = WEP: False
+	.... 0... = Fragmentation: False
+	...1 .... = FCS at end: True
+	..0. .... = Data Pad: False
+	.1.. .... = Bad FCS: True
+	0... .... = Short GI: False
+	Data Rate: 24.0 Mb/s
+	Channel frequency: 2462 [BG 11]
+	Channel flags: 0x0480, 2 GHz spectrum, Dynamic CCK-OFDM
+	.... .... ...0 .... = Turbo: False
+	.... .... ..0. .... = Complementary Code Keying (CCK): False
+	.... .... .0.. .... = Orthogonal Frequency-Division Multiplexing (OFDM): False
+	.... .... 1... .... = 2 GHz spectrum: True
+	.... ...0 .... .... = 5 GHz spectrum: False
+	.... ..0. .... .... = Passive: False
+	.... .1.. .... .... = Dynamic CCK-OFDM: True
+	.... 0... .... .... = Gaussian Frequency Shift Keying (GFSK): False
+	...0 .... .... .... = GSM (900MHz): False
+	..0. .... .... .... = Static Turbo: False
+	.0.. .... .... .... = Half Rate Channel (10MHz Channel Width): False
+	0... .... .... .... = Quarter Rate Channel (5MHz Channel Width): False
+	Antenna signal: -76dBm
+	Antenna noise: -101dBm
+	Antenna: 0
+Layer WLAN_RADIO:
+	PHY type: 802.11g (6)
+	Short preamble: True
+	Proprietary mode: None (0)
+	Data rate: 24.0 Mb/s
+	Channel: 11
+	Frequency: 2462MHz
+	Signal strength (dBm): -76dBm
+	Noise level (dBm): -101dBm
+	TSF timestamp: 514400876
+	Duration: 28\xc2\xb5s
+	Preamble: 20\xc2\xb5s
+	IFS: 2858\xc2\xb5s
+	Start: 514400848\xc2\xb5s
+	End: 514400876\xc2\xb5s
+Layer _WS.MALFORMED:
+	Expert Info (Error/Malformed): Malformed Packet (Exception occurred)
+	Malformed Packet (Exception occurred)
+	Severity level: Error
+	Group: Malformed
+
