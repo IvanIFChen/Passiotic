@@ -19,8 +19,8 @@ python main.py
 `deactivate` to deactivate the virtual env.
 
 ## Current issue trying to run on Pi
-* Permission issue (need sudo to start tshark or something?)
+* Permission issue (need sudo to start tshark in monitor mode)
   - workaround by running it in root
 * Not capturing packets
   - "Listening..." showed up, no error, was not able to capture the association request packets.
-  - it was working on mac with "en0" interface, but changed the to "wlan0" for the Pi and it's not working, it could totally be something else tho.
+  - looks like Pi's default card does not support monitor mode, see [this](https://www.reddit.com/r/raspberry_pi/comments/5m8u29/how_do_i_enable_monitor_mode_on_my_rpi_3b_wifi/)
