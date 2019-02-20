@@ -18,6 +18,9 @@ python main.py
 ```
 `deactivate` to deactivate the virtual env.
 
+### Notes for running the script
+Make sure to change the `INTERFACE` field to appropriate device name. E.g. mac is usually `en0` and on a Pi is `wlan0`.
+
 ## Current issue trying to run on Pi
 * Permission issue (need sudo to start tshark in monitor mode)
   - workaround by running it in root
