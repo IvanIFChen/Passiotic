@@ -53,10 +53,7 @@ if __name__ == '__main__':
                     active_devices.add(p.wlan.get('addr'))
 
                     if time.time() - before >= TICK:
-                        if current_channel <= MAX_CHANNEL:
-                            current_channel += 1
-                        else:
-                            current_channel = 1
+                        current_channel = current_channel + 1 if current_channel < MAX_CHANNEL else 1
 
                         channel_string = '0' + \
                             str(current_channel) if current_channel < 10 else str(
