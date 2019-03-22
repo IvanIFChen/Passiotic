@@ -62,7 +62,7 @@ if __name__ == '__main__':
                             str(current_channel) if current_channel < 10 else str(
                                 current_channel)
                         subprocess.run(
-                            ['iwlist', INTERFACE, 'channel', channel_string])
+                            ['iwconfig', INTERFACE, 'channel', channel_string])
                         print('Current channel is {}'.format(current_channel))
 
                         # clean up addresses
