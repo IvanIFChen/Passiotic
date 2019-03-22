@@ -1,9 +1,11 @@
 import pyshark
 import logging
+import subprocess
 import time
 from pprint import pprint
 
-INTERFACE = 'en0'
+INTERFACE = 'wlan1'
+MAX_CHANNEL = 11
 TICK = 1  # in seconds
 
 
@@ -33,6 +35,7 @@ if __name__ == '__main__':
     try:
         active_devices = set([])
         before = time.time()
+        current_channel = 1
 
         # for p in cap:
         for p in cap.sniff_continuously():
@@ -50,9 +53,21 @@ if __name__ == '__main__':
                     active_devices.add(p.wlan.get('addr'))
 
                     if time.time() - before >= TICK:
+                        if current_channel <= MAX_CHANNEL:
+                            current_channel += 1
+                        else:
+                            current_channel = 1
+
+                        channel_string = '0' + \
+                            str(current_channel) if current_channel < 10 else str(
+                                current_channel)
+                        subprocess.run(
+                            ['iwlist', INTERFACE, 'channel', channel_string])
+                        print('Current channel is {}'.format(current_channel))
 
                         # clean up addresses
-                        ignore_invalid = lambda x: x is not None and x != 'ff:ff:ff:ff:ff:ff'
+                        def ignore_invalid(
+                            x): return x is not None and x != 'ff:ff:ff:ff:ff:ff'
                         active_devices = {
                             x
                             for x in active_devices if ignore_invalid(x)
