@@ -80,5 +80,6 @@ if __name__ == '__main__':
                 logger.debug(p)
                 continue
     except KeyboardInterrupt:
+        channel_hopper.join()
         print('BYE')
         pass
