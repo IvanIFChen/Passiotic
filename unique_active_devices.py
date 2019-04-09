@@ -9,7 +9,7 @@ from channel_hopping import ChannelHopper
 INTERFACE = 'wlan1'
 MAX_CHANNEL = 11
 TICK = 60  # in seconds
-CHANNEL_HOP_FREQ = 5
+CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
 
 

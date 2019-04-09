@@ -1,5 +1,6 @@
 import threading
 import subprocess
+import time
 
 
 class ChannelHopper(threading.Thread):
@@ -7,7 +8,7 @@ class ChannelHopper(threading.Thread):
     A thread worker that hops between an array of channels in order every n seconds.
     """
 
-    def __init__(self, channels, frequency, interface):
+    def __init__(self, channels, interval, interface):
         """
         channels -- An array of integers representing the channels to hop between.
         frequency -- The number of seconds between each hop.
@@ -15,7 +16,7 @@ class ChannelHopper(threading.Thread):
         """
         super().__init__()
         self.channels = channels
-        self.frequency = frequency
+        self.interval = interval
         self.stop = threading.Event()
         self.interface = interface
 
@@ -32,6 +33,8 @@ class ChannelHopper(threading.Thread):
             print('Current channel is {}'.format(chan_string))
 
             chan_index = (chan_index + 1) % len(self.channels)
+
+            time.sleep(self.interval)
 
     def join(self, timeout=None):
         self.stop.set()
