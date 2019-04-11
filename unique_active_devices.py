@@ -4,9 +4,13 @@ import subprocess
 import time
 from pprint import pprint
 
+from channel_hopping import ChannelHopper
+
 INTERFACE = 'wlan1'
 MAX_CHANNEL = 11
-TICK = 1  # in seconds
+TICK = 60  # in seconds
+CHANNEL_HOP_FREQ = 10
+CHANNELS = [1, 6, 11]
 
 
 def setup_log():
@@ -32,10 +36,12 @@ if __name__ == '__main__':
 
     print('Listening...')
 
+    channel_hopper = ChannelHopper(CHANNELS, CHANNEL_HOP_FREQ, INTERFACE)
+    channel_hopper.start()
+
     try:
         active_devices = set([])
         before = time.time()
-        current_channel = 1
 
         # for p in cap:
         for p in cap.sniff_continuously():
@@ -53,15 +59,6 @@ if __name__ == '__main__':
                     active_devices.add(p.wlan.get('addr'))
 
                     if time.time() - before >= TICK:
-                        current_channel = current_channel + 1 if current_channel < MAX_CHANNEL else 1
-
-                        channel_string = '0' + \
-                            str(current_channel) if current_channel < 10 else str(
-                                current_channel)
-                        subprocess.run(
-                            ['iwconfig', INTERFACE, 'channel', channel_string])
-                        print('Current channel is {}'.format(current_channel))
-
                         # clean up addresses
                         def ignore_invalid(
                             x): return x is not None and x != 'ff:ff:ff:ff:ff:ff'
@@ -83,5 +80,6 @@ if __name__ == '__main__':
                 logger.debug(p)
                 continue
     except KeyboardInterrupt:
+        channel_hopper.join()
         print('BYE')
         pass
