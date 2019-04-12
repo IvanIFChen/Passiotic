@@ -42,7 +42,7 @@ def send_active_devices(devices, logger):
         'end_time': str(datetime.now())
     }
 
-    r = requests.post(REMOTE_URL, data=payload)
+    r = requests.post(REMOTE_URL, json=payload)
 
     if not r.status_code == 200:
         msg = 'Got {} from lambda'.format(r.status_code)
