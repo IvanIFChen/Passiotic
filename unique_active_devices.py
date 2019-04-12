@@ -1,8 +1,11 @@
 import pyshark
+import requests
 import logging
 import subprocess
 import time
+import json
 from pprint import pprint
+from datetime import datetime
 
 from channel_hopping import ChannelHopper
 
@@ -11,6 +14,8 @@ MAX_CHANNEL = 11
 TICK = 60  # in seconds
 CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
+PI_ID = "pi_1"
+REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 
 
 def setup_log():
@@ -27,6 +32,22 @@ def setup_log():
 
     logger = logging.getLogger(__name__)
     return logger
+
+
+def send_active_devices(devices, logger):
+    payload = {
+        'active_devices': list(devices),
+        'pi_id': PI_ID,
+        'start_time': 'n/a',
+        'end_time': str(datetime.now()),
+        'clear_all': True
+    }
+
+    r = requests.post(REMOTE_URL, json=payload)
+
+    if not r.status_code == 200:
+        msg = 'Got {} from lambda'.format(r.status_code)
+        logger.debug(msg)
 
 
 if __name__ == '__main__':
@@ -69,6 +90,9 @@ if __name__ == '__main__':
 
                         out_msg = 'Active devices: {}'.format(active_devices)
                         print(out_msg)
+
+                        send_active_devices(active_devices, logger)
+
                         logger.debug(out_msg)
 
                         before = time.time()
