@@ -1,63 +1,20 @@
 #!/usr/bin/python3
 
-import argparse
+class MACLookup():
+	# an instance of this class can determine if a MAC Address is in a list of unacceptable vendors.
 
-def main():
-# -> None
-# prints the manufacturers for all the mac addresses in the file
+	def __init__(self, vendors_f, unacceptable):
+		self.lookup = get_mac_lookup(vendors_f)
+		self.unacceptable = unacceptable
 
-	parser = parser_setup()
-
-	args = vars(parser.parse_args())
-	venders_f = args['vendors']
-	sample_f = args['sample']
-	log_f = args['log']
-	delim = args['delimiter']
-
-	mac_lookup = get_mac_lookup(venders_f)
-	samples = get_sample_macs(sample_f)
-
-	hits = 0
-	misses = 0
-	all_found = []
-	all_missed = []
-
-	log = open(log_f, 'w')
-
-	for sample in samples:
-		found = False
-		for mac in mac_lookup:
+	def reject(self, sample):
+		sample = sample.upper() # ensure MAC Address is in caps
+		for mac in self.lookup:
 			if sample[:len(mac[0])] == mac[0]:
-				#print(sample + ": " + str(mac[1]))
-				log.write(sample + delim + str(mac[1]) + '\n')
-				found = True
-				hits += 1
-				all_found.append(sample)
-		if not found:
-			#print(sample + ": NOT FOUND")	
-			log.write(sample + delim + 'NOT FOUND\n')
-			misses += 1
-			all_missed.append(sample)
-
-	log.close()
-	print('\nHits: ' + str(hits) + ' Misses: ' + str(misses))
-	
-#	print('\nSORTED MISSED: ')
-#	for miss in sorted(all_missed):
-#		print(miss)
-
-	return None
-
-def parser_setup():
-# -> ArgumentParser
-# sets up a command line parser.
-	p = argparse.ArgumentParser()
-	p.add_argument('vendors', help='File containing the MAC address prefixes of common vendors.')
-	p.add_argument('sample', help='File containing a sample of MAC addresses.')
-	p.add_argument('log', help='File to output the results.')
-	p.add_argument('-d', '--delimiter', default=',', help='Delimiter for the file, default = \',\'')
-
-	return p
+				vendor_info = mac[1]
+				vendor_abbr = vendor_info[0] # check against the vendor abbreviation
+				return vendor_abbr in self.unacceptable
+		return False
 
 def get_mac_lookup(vendors):
 # File -> list
@@ -88,21 +45,6 @@ def man_sanatize(man):
 	man[-1] = man[-1][:-1]
 	return tuple(man)
 
-def get_sample_macs(sample):
-# File -> list
-# returns a list of sample MAC address
-	samples = []
-	sample_file = open(sample, 'r')
-	for line in iter(sample_file.readline, ''):
-		addr = sample_sanatize(line)
-		samples.append(addr)
-	sample_file.close()
-	return samples
 
-def sample_sanatize(addr):
-# str -> str
-# remove newline and make caps
-	return addr[:-1].upper()
-
-
-main()
+#test = MACLookup('vendors.txt', [])
+#print(test.reject('40:4e:36:1e:4f:84'))
