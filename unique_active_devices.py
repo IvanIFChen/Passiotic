@@ -40,7 +40,7 @@ def send_active_devices(devices, logger):
         'pi_id': PI_ID,
         'start_time': 'n/a',
         'end_time': str(datetime.now()),
-        'clear_all': False
+        'clear_all': True
     }
 
     r = requests.post(REMOTE_URL, json=payload)
