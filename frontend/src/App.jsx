@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import Counter from './components/counter';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active_devices: new Set(),
+      activeDevices: new Set(),
       fetchActiveDevicesIntervalId: null
     };
   }
@@ -24,9 +25,9 @@ class App extends Component {
 
       const data = await res.json();
 
-      const macAddr = data.body.Items.map(r => r.active_device_id);
+      const macAddr = data.Items.map(r => r.active_device_id);
       this.setState({
-        active_devices: new Set(macAddr)
+        activeDevices: new Set(macAddr)
       });
     };
 
@@ -43,7 +44,11 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App" />;
+    return (
+      <div className="App">
+        <Counter count={this.state.activeDevices.size} />
+      </div>
+    );
   }
 }
 
