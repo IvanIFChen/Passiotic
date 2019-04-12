@@ -34,6 +34,21 @@ def setup_log():
     return logger
 
 
+def send_active_devices(devices, logger):
+    payload = {
+        'active_devices': list(devices),
+        'pi_id': PI_ID,
+        'start_time': 'n/a',
+        'end_time': str(datetime.now())
+    }
+
+    r = requests.post(REMOTE_URL, json=json.dumps(payload))
+
+    if not (r.status_code == 200):
+        logger.debug(
+            'Got %s when trying to send results to central server' % r.status_code)
+
+
 if __name__ == '__main__':
     logger = setup_log()
 
@@ -91,18 +106,3 @@ if __name__ == '__main__':
         channel_hopper.join()
         print('BYE')
         pass
-
-
-def send_active_devices(devices, logger):
-    payload = {
-        'active_devices': list(devices),
-        'pi_id': PI_ID,
-        'start_time': 'n/a',
-        'end_time': str(datetime.now())
-    }
-
-    r = requests.post(REMOTE_URL, json=json.dumps(payload))
-
-    if not (r.status_code == 200):
-        logger.debug(
-            'Got %s when trying to send results to central server' % r.status_code)
