@@ -44,9 +44,9 @@ def send_active_devices(devices, logger):
 
     r = requests.post(REMOTE_URL, json=json.dumps(payload))
 
-    if not (r.status_code == 200):
-        logger.debug(
-            'Got %s when trying to send results to central server' % r.status_code)
+    if not r.status_code == 200:
+        msg = 'Got {} from lambda'.format(r.status_code)
+        logger.debug(msg)
 
 
 if __name__ == '__main__':
