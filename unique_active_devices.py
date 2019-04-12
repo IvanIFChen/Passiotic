@@ -90,7 +90,7 @@ if __name__ == '__main__':
                         out_msg = 'Active devices: {}'.format(active_devices)
                         print(out_msg)
 
-                        send_active_devices(active_devices)
+                        send_active_devices(active_devices, logger)
 
                         logger.debug(out_msg, logger)
 
