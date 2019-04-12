@@ -1,8 +1,11 @@
 import pyshark
+import requests
 import logging
 import subprocess
 import time
+import json
 from pprint import pprint
+from datetime import datetime
 
 from channel_hopping import ChannelHopper
 
@@ -11,6 +14,8 @@ MAX_CHANNEL = 11
 TICK = 60  # in seconds
 CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
+PI_ID = "pi_1"
+REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 
 
 def setup_log():
@@ -69,7 +74,10 @@ if __name__ == '__main__':
 
                         out_msg = 'Active devices: {}'.format(active_devices)
                         print(out_msg)
-                        logger.debug(out_msg)
+
+                        send_active_devices(active_devices)
+
+                        logger.debug(out_msg, logger)
 
                         before = time.time()
                         active_devices = set([])
@@ -83,3 +91,18 @@ if __name__ == '__main__':
         channel_hopper.join()
         print('BYE')
         pass
+
+
+def send_active_devices(devices, logger):
+    payload = {
+        'active_devices': list(devices),
+        'pi_id': PI_ID,
+        'start_time': 'n/a',
+        'end_time': str(datetime.now())
+    }
+
+    r = requests.post(REMOTE_URL, json=json.dumps(payload))
+
+    if not (r.status_code == 200):
+        logger.debug(
+            'Got %s when trying to send results to central server' % r.status_code)
