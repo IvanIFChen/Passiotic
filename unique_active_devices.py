@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
                         send_active_devices(active_devices, logger)
 
-                        logger.debug(out_msg, logger)
+                        logger.debug(out_msg)
 
                         before = time.time()
                         active_devices = set([])
