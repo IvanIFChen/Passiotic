@@ -6,6 +6,7 @@ import time
 import json
 from pprint import pprint
 from datetime import datetime
+from filtering import MACLookup
 
 from channel_hopping import ChannelHopper
 
@@ -16,7 +17,8 @@ CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
 PI_ID = "pi_1"
 REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
-
+VENDORS_F = 'vendors.txt'
+UNACCEPTABLE_VENDORS = [] # TODO
 
 def setup_log():
     logging.basicConfig(
@@ -51,6 +53,7 @@ def send_active_devices(devices, logger):
 
 
 if __name__ == '__main__':
+    lookup = MACLookup(VENDORS_F, UNACCEPTABLE_VENDORS)
     logger = setup_log()
 
     cap = pyshark.LiveCapture(interface=INTERFACE, monitor_mode=True)
@@ -81,8 +84,9 @@ if __name__ == '__main__':
 
                     if time.time() - before >= TICK:
                         # clean up addresses
-                        def ignore_invalid(
-                            x): return x is not None and x != 'ff:ff:ff:ff:ff:ff'
+                        def ignore_invalid(x):
+                            
+                            return (x is not None and x != 'ff:ff:ff:ff:ff:ff') and not lookup.reject(x)
                         active_devices = {
                             x
                             for x in active_devices if ignore_invalid(x)
