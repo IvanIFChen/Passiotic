@@ -34,11 +34,11 @@ def setup_log():
     return logger
 
 
-def send_active_devices(devices, logger):
+def send_active_devices(devices, start_time, logger):
     payload = {
         'active_devices': list(devices),
         'pi_id': PI_ID,
-        'start_time': 'n/a',
+        'start_time': str(start_time),
         'end_time': str(datetime.now()),
         'clear_all': True
     }
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                         out_msg = 'Active devices: {}'.format(active_devices)
                         print(out_msg)
 
-                        send_active_devices(active_devices, logger)
+                        send_active_devices(active_devices, before, logger)
 
                         logger.debug(out_msg)
 
