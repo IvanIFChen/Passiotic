@@ -18,7 +18,8 @@ CHANNELS = [1, 6, 11]
 PI_ID = "pi_1"
 REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 VENDORS_F = 'vendors.txt'
-UNACCEPTABLE_VENDORS = [] # TODO
+UNACCEPTABLE_VENDORS = []  # TODO
+
 
 def setup_log():
     logging.basicConfig(
@@ -42,7 +43,7 @@ def send_active_devices(devices, start_time, logger):
         'pi_id': PI_ID,
         'start_time': str(start_time),
         'end_time': str(datetime.now()),
-        'clear_all': True
+        'clear_all': False
     }
 
     r = requests.post(REMOTE_URL, json=payload)
@@ -85,7 +86,7 @@ if __name__ == '__main__':
                     if time.time() - before >= TICK:
                         # clean up addresses
                         def ignore_invalid(x):
-                            
+
                             return (x is not None and x != 'ff:ff:ff:ff:ff:ff') and not lookup.reject(x)
                         active_devices = {
                             x
