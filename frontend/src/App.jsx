@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Counter from './components/counter';
+import Chart from './components/chart';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeDevices: new Set(),
+      activeDeviceCount: null,
+      deviceList: null,
       fetchActiveDevicesIntervalId: null
     };
   }
@@ -24,10 +26,23 @@ class App extends Component {
       }
 
       const data = await res.json();
+      const items = data.Items;
 
-      const macAddr = data.Items.map(r => r.active_device_id);
+      let latestDate;
+      items.forEach(item => {
+        const endDateTime = Date.parse(item.end_time);
+        if (endDateTime > latestDate || latestDate === undefined) {
+          latestDate = endDateTime;
+        }
+      });
+
+      const activeDeviceCount = items.filter(
+        item => Date.parse(item.end_time) === latestDate
+      ).length;
+
       this.setState({
-        activeDevices: new Set(macAddr)
+        activeDeviceCount: activeDeviceCount,
+        deviceList: items
       });
     };
 
@@ -46,7 +61,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Counter count={this.state.activeDevices.size} />
+        <Counter count={this.state.activeDeviceCount} />
+        <br />
+        <Chart activeDevices={this.state.activeDevices} />
       </div>
     );
   }
