@@ -41,8 +41,8 @@ def send_active_devices(devices, start_time, logger):
     payload = {
         'active_devices': list(devices),
         'pi_id': PI_ID,
-        'start_time': str(start_time),
-        'end_time': str(datetime.now()),
+        'start_time': start_time.isoformat(),
+        'end_time': datetime.now().isoformat(),
         'clear_all': False
     }
 
