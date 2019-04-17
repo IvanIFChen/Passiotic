@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import styled from '@emotion/styled';
+import Chart from 'chart.js';
 
-const Chart = props => {
-  return <div>This is the chart</div>;
+const ChartComponent = props => {
+  const chartRef = React.createRef();
+  const StyledCanvas = styled.canvas`
+    width: 300px;
+    height: 300px;
+  `;
+  useEffect(() => {
+    const lineChart = new Chart(chartRef.current, {
+      type: 'line',
+      data: [40, 50, 20]
+    });
+  });
+  return <StyledCanvas ref={chartRef} />;
 };
 
-export default Chart;
+export default ChartComponent;

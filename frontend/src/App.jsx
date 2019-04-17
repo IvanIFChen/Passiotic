@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Counter from './components/counter';
-import Chart from './components/chart';
+import ChartComponent from './components/chart';
 
 class App extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class App extends Component {
       <div className="App">
         <Counter count={this.state.activeDeviceCount} />
         <br />
-        <Chart activeDevices={this.state.activeDevices} />
+        <ChartComponent activeDevices={this.state.activeDevices} />
       </div>
     );
   }
