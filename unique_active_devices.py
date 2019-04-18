@@ -18,7 +18,7 @@ CHANNELS = [1, 6, 11]
 PI_ID = "pi_1"
 REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 VENDORS_F = 'vendors.txt'
-UNACCEPTABLE_VENDORS = []  # TODO
+UNACCEPTABLE_VENDORS = ['Cisco', 'ArubaAHe']
 
 
 def setup_log():
