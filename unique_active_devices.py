@@ -15,7 +15,7 @@ MAX_CHANNEL = 11
 TICK = 180  # in seconds
 CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
-PI_ID = "pi_1"
+PI_ID = "pi_2"
 REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 VENDORS_F = 'vendors.txt'
 UNACCEPTABLE_VENDORS = ['Cisco', 'ArubaAHe']
@@ -87,7 +87,7 @@ if __name__ == '__main__':
                         # clean up addresses
                         def ignore_invalid(x):
 
-                            return (x is not None and x != 'ff:ff:ff:ff:ff:ff') and not lookup.reject(x)
+                            return (x is not None and x != 'ff:ff:ff:ff:ff:ff' and x != '00:00:00:00:00:00') and not lookup.reject(x)
                         active_devices = {
                             x
                             for x in active_devices if ignore_invalid(x)
