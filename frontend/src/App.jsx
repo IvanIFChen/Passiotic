@@ -74,16 +74,21 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <Counter count={this.state.activeDeviceCount} />
-        <br />
-        <ChartComponent
-          activeDevices={this.state.allItems}
-          maxRound={MAX_NUM_ROUNDS}
-        />
-      </div>
-    );
+    if (this.state.allItems) {
+      return (
+        <div className="App">
+          <Counter count={this.state.activeDeviceCount} />
+          <br />
+          <ChartComponent
+            piIds={PI_IDS}
+            items={this.state.allItems}
+            maxRound={MAX_NUM_ROUNDS}
+          />
+        </div>
+      );
+    } else {
+      return <h1>Loading...</h1>;
+    }
   }
 }
 
