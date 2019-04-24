@@ -12,13 +12,13 @@ from channel_hopping import ChannelHopper
 
 INTERFACE = 'wlan1'
 MAX_CHANNEL = 11
-TICK = 60  # in seconds
+TICK = 180  # in seconds
 CHANNEL_HOP_FREQ = 10
 CHANNELS = [1, 6, 11]
-PI_ID = "pi_1"
+PI_ID = "pi_2"
 REMOTE_URL = 'https://06apquhqjg.execute-api.us-east-1.amazonaws.com/prod/api'
 VENDORS_F = 'vendors.txt'
-UNACCEPTABLE_VENDORS = []  # TODO
+UNACCEPTABLE_VENDORS = ['Cisco', 'ArubaAHe']
 
 
 def setup_log():
@@ -37,13 +37,14 @@ def setup_log():
     return logger
 
 
-def send_active_devices(devices, start_time, logger):
+def send_active_devices(devices, round_id, start_time, logger):
     payload = {
         'active_devices': list(devices),
         'pi_id': PI_ID,
         'start_time': datetime.fromtimestamp(start_time).isoformat(),
         'end_time': datetime.now().isoformat(),
-        'clear_all': False
+        'clear_all': False,
+        'round_id': round_id
     }
 
     r = requests.post(REMOTE_URL, json=payload)
@@ -60,6 +61,8 @@ if __name__ == '__main__':
     cap = pyshark.LiveCapture(interface=INTERFACE, monitor_mode=True)
 
     print('Listening...')
+
+    round_id = 0
 
     channel_hopper = ChannelHopper(CHANNELS, CHANNEL_HOP_FREQ, INTERFACE)
     channel_hopper.start()
@@ -87,7 +90,7 @@ if __name__ == '__main__':
                         # clean up addresses
                         def ignore_invalid(x):
 
-                            return (x is not None and x != 'ff:ff:ff:ff:ff:ff') and not lookup.reject(x)
+                            return (x is not None and x != 'ff:ff:ff:ff:ff:ff' and x != '00:00:00:00:00:00') and not lookup.reject(x)
                         active_devices = {
                             x
                             for x in active_devices if ignore_invalid(x)
@@ -96,8 +99,8 @@ if __name__ == '__main__':
                         out_msg = 'Active devices: {}'.format(active_devices)
                         print(out_msg)
 
-                        send_active_devices(active_devices, before, logger)
-
+                        send_active_devices(active_devices, round_id, before, logger)
+                        round_id += 1
                         logger.debug(out_msg)
 
                         before = time.time()
