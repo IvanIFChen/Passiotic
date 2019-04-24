@@ -44,8 +44,6 @@ const ChartComponent = props => {
     labels.push('Report ' + i.toString());
   }
 
-  console.log(labels);
-
   return (
     <Line
       data={{
