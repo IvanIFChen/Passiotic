@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import Counter from './components/counter';
 import ChartComponent from './components/chart';
+import { getItemsForPiRound, getLatestRoundForPi } from './utils';
 
 const PI_IDS = ['pi_1', 'pi_2'];
+const MAX_NUM_ROUNDS = 20; // The maximum number of rounds to graph
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeDeviceCount: null,
-      deviceList: null,
+      allItems: null,
       fetchActiveDevicesIntervalId: null
     };
   }
@@ -30,30 +32,19 @@ class App extends Component {
       const data = await res.json();
       const items = data.Items;
 
-      const piItems = new Map();
-      PI_IDS.forEach(id => {
-        const pi = items.filter(item => item.pi_id === id);
-        piItems.set(id, pi);
-      });
-
       const piLatestRound = new Map();
-      for (let pi of piItems.keys()) {
-        piLatestRound.set(pi, 0);
-      }
-
-      for (let items of piItems) {
-        for (let item of items[1]) {
-          if (piLatestRound.get(items[0]) < item.round_id) {
-            piLatestRound.set(items[0], item.round_id);
-          }
-        }
+      for (let pi of PI_IDS) {
+        piLatestRound.set(pi, getLatestRoundForPi(pi, items));
       }
 
       const piFiltered = new Map();
-      for (let pi of piItems.keys()) {
-        const filteredItems = piItems
-          .get(pi)
-          .filter(item => item.round_id === piLatestRound.get(pi));
+      for (let pi of PI_IDS) {
+        const filteredItems = getItemsForPiRound(
+          pi,
+          piLatestRound.get(pi),
+          items
+        );
+
         piFiltered.set(pi, filteredItems);
       }
 
@@ -66,7 +57,7 @@ class App extends Component {
 
       this.setState({
         activeDeviceCount: uniqueDevices.size,
-        deviceList: items
+        allItems: items
       });
     };
 
@@ -87,7 +78,10 @@ class App extends Component {
       <div className="App">
         <Counter count={this.state.activeDeviceCount} />
         <br />
-        <ChartComponent activeDevices={this.state.activeDevices} />
+        <ChartComponent
+          activeDevices={this.state.allItems}
+          maxRound={MAX_NUM_ROUNDS}
+        />
       </div>
     );
   }

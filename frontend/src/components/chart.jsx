@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { Line } from 'react-chartjs-2';
 
 const ChartComponent = props => {
@@ -14,8 +13,8 @@ const ChartComponent = props => {
           }
         ]
       }}
-      height="100"
-      width="200"
+      height={100}
+      width={200}
     />
   );
 };
