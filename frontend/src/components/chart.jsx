@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import Chart from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 const ChartComponent = props => {
-  const chartRef = React.createRef();
-  const StyledCanvas = styled.canvas`
-    width: 300px;
-    height: 300px;
-  `;
-  useEffect(() => {
-    const lineChart = new Chart(chartRef.current, {
-      type: 'line',
-      data: [40, 50, 20]
-    });
-  });
-  return <StyledCanvas ref={chartRef} />;
+  return (
+    <Line
+      data={{
+        labels: ['1', '2', '3', '4'],
+        datasets: [
+          {
+            label: 'Hi',
+            data: [20, 30, 50, 10]
+          }
+        ]
+      }}
+      height="100"
+      width="200"
+    />
+  );
 };
 
 export default ChartComponent;
