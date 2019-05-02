@@ -1,0 +1,1 @@
+all_time_active_devices

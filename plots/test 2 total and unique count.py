@@ -15,11 +15,7 @@ def load_from_file(filename):
             round_id = x['round_id']['n']
             pi = x['pi_id']['s']
             mac = x['device_mac']['s']
-            # raw_data.append(()
-            # raw_data.append(round_id)
             raw_data.append((round_id, pi, mac))
-    # pprint(sorted(raw_data, key=lambda x: x[0]))
-    # quit()
     for d in raw_data:
         data[d[0]] += [d[2]]
 
@@ -32,13 +28,11 @@ def load_from_file(filename):
 if __name__ == '__main__':
     data, unique_data = load_from_file(
         'dynamo_exports/Second-Test-Snell-2nd-Floor')
-    unique_data = sorted(
-        [(key, unique_data[key]) for key in unique_data.keys()],
-        key=lambda x: x[0][0])[:-1]
+    unique_data = sorted([(key, unique_data[key])
+                          for key in unique_data.keys()],
+                         key=lambda x: x[0][0])[:-1]
     data = sorted([(key, data[key]) for key in data.keys()],
                   key=lambda x: x[0][0])[:-1]
-    # pprint(data)
-    # quit()
     f, ax = plt.subplots(1)
     ydata_data = [len(x[1]) for x in data]
     ydata_unique = [len(x[1]) for x in unique_data]
@@ -54,5 +48,4 @@ if __name__ == '__main__':
         ax.annotate(str(j), xy=((i, j + 3)))
 
     plt.legend()
-    # plt.ylabel('Unique devices per Pi')
     plt.show()
